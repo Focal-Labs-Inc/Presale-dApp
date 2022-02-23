@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "module": "es2020",
+    "lib": ["es2020", "DOM", "DOM.Iterable"],
+    "moduleResolution": "node",                     
+    "noEmitOnError": true,
+    "strict": true,  
+    "sourceMap": true,
+    "esModuleInterop": false,                 
+    "outDir": "./build",
+    "rootDir": "./src",
+    "experimentalDecorators": true
+  }
+  ,
+  "include": ["./src/**/*.ts"]
+}

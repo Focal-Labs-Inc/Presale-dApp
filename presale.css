@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap');
+html {
+  min-height: 100%;
+  min-width: 100%;
+}
+h1 {
+
+  font-family: "Noto Sans", sans-serif;
+  background-image: linear-gradient(
+    30deg,
+    hsl(254deg 100% 68%) 0%,
+    hsl(270deg 87% 70%) 17%,
+    hsl(290deg 72% 72%) 33%,
+    hsl(318deg 100% 81%) 50%,
+    hsl(318deg 100% 87%) 67%,
+    hsl(319deg 100% 94%) 83%,
+    hsl(0deg 0% 100%) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #1f2937;
+  background-image: radial-gradient(
+      at 20% 72%,
+      hsla(214, 97%, 63%, 1) 0,
+      transparent 57%
+    ),
+    radial-gradient(at 72% 93%, hsla(242, 95%, 68%, 1) 0, transparent 54%),
+    radial-gradient(at 53% 34%, hsla(166, 83%, 74%, 1) 0, transparent 46%),
+    radial-gradient(at 22% 40%, hsla(225, 93%, 69%, 1) 0, transparent 47%),
+    radial-gradient(at 90% 55%, hsla(109, 73%, 72%, 1) 0, transparent 58%),
+    radial-gradient(at 83% 20%, hsla(178, 66%, 71%, 1) 0, transparent 59%),
+    radial-gradient(at 92% 30%, hsla(30, 91%, 64%, 1) 0, transparent 53%);
+}
+
+.card {
+  background-color: rgba(17, 25, 40, 0.75);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  color: white;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 22%;
+  justify-content: space-around;
+  aspect-ratio: auto;
+}
+
+button:disabled {
+  opacity: 0.7;
+}
