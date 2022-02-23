@@ -69,9 +69,7 @@ export class FocalPresale {
   public presaleDetails: PresaleDetails;
   public userDetails: PresaleUserDetails;
 
-  public openProvider: JsonRpcProvider = this.getProvider(
-    'http://localhost:8545'
-  );
+  public openProvider: JsonRpcProvider = this.getProvider();
   public signer: JsonRpcSigner | null = null;
   public walletState: WalletState = null;
 
@@ -95,7 +93,7 @@ export class FocalPresale {
   }
 
   private getProvider(url: string = 'https://bsc-dataseed.binance.org/') {
-    const res = new ethers.providers.JsonRpcProvider('http://localhost:8545');
+    const res = new ethers.providers.JsonRpcProvider(url);
     console.log(`Opened provider manually... ${url}`);
     return res;
   }

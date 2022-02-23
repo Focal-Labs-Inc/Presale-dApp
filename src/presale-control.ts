@@ -27,6 +27,57 @@ export class PresaleControl extends LitElement {
     this.presale = new FocalPresale();
   }
 
+  private async _getClaimState(): Promise<boolean> {
+    if (this.presale.userDetails.tokensUnclaimed <= 0) {
+      return false;
+    }
+    let hasClaimed: boolean =
+      smallNumber(
+        await this.presale.presaleInstance!.lastTokensClaimed(
+          this.presale.userDetails.address!
+        )
+      ) > 0;
+    if (this.presale.presaleDetails.state == 'Finalized') {
+      if (this.presale.userDetails.isPrivatesale) {
+        if (!hasClaimed) {
+          return true;
+        }
+      }
+      if (!hasClaimed) {
+        return true;
+      }
+    }
+    if (this.presale.presaleDetails.state == 'Vested') {
+      return true;
+    }
+    return false;
+  }
+
+  private _getMaxBuyForRemainder() {
+    let maxBuy = 2;
+    if (this.presale.userDetails.tokensUnclaimed == 0) {
+      return maxBuy;
+    }
+    if (this.presale.userDetails.tokensUnclaimed == 22450) {
+      return 0;
+    }
+    let userBought = round(this.presale.userDetails.tokensUnclaimed / 11225, 1);
+    let userRemaining = round(maxBuy - userBought, 1);
+    if (this.presale.presaleDetails.raised > 498) {
+      maxBuy = round(500 - this.presale.presaleDetails.raised, 1);
+      if (maxBuy < userRemaining) {
+        console.log(`total space less than user remaining, ${maxBuy}`);
+        return maxBuy;
+      }
+    }
+    console.log(
+      `user already bought ${userBought}, space left: ${
+        500 - this.presale.presaleDetails.raised
+      }, user remaining: ${userRemaining}`
+    );
+    return userRemaining;
+  }
+
   private _renderPurchaseUI(state: PresaleState, max: number) {
     if (this.presale.userDetails.isPrivatesale) {
       return html`<div
@@ -139,29 +190,6 @@ export class PresaleControl extends LitElement {
       </div>`;
     }
   }
-  private async _getClaimState(): Promise<boolean> {
-    if (this.presale.userDetails.tokensUnclaimed <= 0) { return false; }
-    let hasClaimed: boolean =
-      smallNumber(
-        await this.presale.presaleInstance!.lastTokensClaimed(
-          this.presale.userDetails.address!
-        )
-      ) > 0;
-    if (this.presale.presaleDetails.state == 'Finalized') {
-      if (this.presale.userDetails.isPrivatesale) {
-        if (!hasClaimed) {
-          return true;
-        }
-      }
-      if (!hasClaimed) {
-        return true;
-      }
-    }
-    if (this.presale.presaleDetails.state == 'Vested') {
-      return true;
-    }
-    return false;
-  }
 
   private _renderClaimUI() {
     return html`<div
@@ -189,6 +217,7 @@ export class PresaleControl extends LitElement {
       </div>
     </div>`;
   }
+
   private _renderControlUI() {
     if (this.presale.presaleDetails.state == 'NotStarted') {
       return html`<div
@@ -219,31 +248,12 @@ export class PresaleControl extends LitElement {
     }
   }
 
-  private _getMaxBuyForRemainder() {
-    let maxBuy = 2;
-    if (this.presale.userDetails.tokensUnclaimed == 0) {
-      return maxBuy;
-    }
-    if (this.presale.userDetails.tokensUnclaimed == 22450) {
-      return 0;
-    }
-    let userBought = this.presale.userDetails.tokensUnclaimed / 11225;
-    let userRemaining = round(maxBuy - userBought, 1);
-    if (this.presale.presaleDetails.raised > 498) {
-      maxBuy = round(500 - this.presale.presaleDetails.raised, 1);
-      if (maxBuy < userRemaining) {
-        console.log(`total space less than user remaining, ${maxBuy}`);
-        return maxBuy;
-      }
-    }
-    console.log(`user already bought ${userBought}, space left: ${500 - this.presale.presaleDetails.raised}, user remaining: ${userRemaining}`);
-    return userRemaining;
-  }
-
   override render() {
     if (this.presale.walletState === null) {
       return html`
-        <div class="min-h-full m-2 flex justify-center items-center font-bold text-xl text-white">
+        <div
+          class="min-h-full m-2 flex justify-center items-center font-bold text-xl text-white"
+        >
           <div class="self-center text-white p-2">
             <div class="text-xl m-2">Loading</div>
             <i class="fa-3x fas fa-spinner-third fa-spin m-2"></i>
