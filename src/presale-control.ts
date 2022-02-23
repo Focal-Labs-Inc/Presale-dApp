@@ -264,18 +264,19 @@ export class PresaleControl extends LitElement {
     if (this.presale.walletState === 'notinstalled') {
       return html`
         <div>
-          <button
-            class="shadow bg-slate-100 rounded w-full hover:bg-slate-200 flex flex-col p-4 justify-evenly"
-          >
-            <div class="font-bold self-center">BUY WITH OUR APP</div>
-            <div class="w-20 self-center">
-              <img
-                src="assets/focalwordmark.svg"
-                class="object-contain"
-                style=""
-              />
-            </div>
-          </button>
+          <a href="https://github.com/Focal-Labs-Inc/FocalDeFi/releases/"
+            ><button
+              class="shadow bg-slate-100 rounded w-full hover:bg-slate-200 flex flex-col p-4 justify-evenly"
+            >
+              <div class="font-bold self-center">BUY WITH OUR APP</div>
+              <div class="w-20 self-center">
+                <img
+                  src="assets/focalwordmark.svg"
+                  class="object-contain"
+                  style=""
+                />
+              </div></button
+          ></a>
         </div>
       `;
     }
@@ -294,18 +295,19 @@ export class PresaleControl extends LitElement {
             <img src="assets/metamask.svg" class="object-contain" />
           </div>
         </button>
-        <button
-          class="shadow bg-slate-100 rounded w-full hover:bg-slate-200 flex flex-col p-4 justify-evenly"
-        >
-          <div class="font-bold self-center">BUY WITH OUR APP</div>
-          <div class="w-20 self-center">
-            <img
-              src="assets/focalwordmark.svg"
-              class="object-contain"
-              style=""
-            />
-          </div>
-        </button>
+        <a href="https://github.com/Focal-Labs-Inc/FocalDeFi/releases/"
+          ><button
+            class="shadow bg-slate-100 rounded w-full hover:bg-slate-200 flex flex-col p-4 justify-evenly"
+          >
+            <div class="font-bold self-center">BUY WITH OUR APP</div>
+            <div class="w-20 self-center">
+              <img
+                src="assets/focalwordmark.svg"
+                class="object-contain"
+                style=""
+              />
+            </div></button
+        ></a>
       </div>
     `;
   }
