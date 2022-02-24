@@ -79,8 +79,13 @@
             <h1 class="font-bold text-5xl mb-2 heading text-white">
               Focal DeFi Presale
             </h1>
-            <p class="text-white font-bold">0xF0ca100000e47A0dd2087C81EC910B0BDe6Ad6f5</p>
-            <p id="status-field">Status: Not Started</p>
+            <p class="text-white font-bold break-all">
+              Token: 0xF0ca100000e47A0dd2087C81EC910B0BDe6Ad6f5
+            </p>
+            <p class="text-white font-bold break-all">
+              Presale: 0x004f127fD332220C8aFAdECaDDD3EdFC8af022A0
+            </p>
+            <p id="status-field" class="text-white">Status: Not Started</p>
             <p class="text-white text-base">
               Focal's desktop wallet for Mac OSX, Windows and Linux is finally
               here! Swap across all EVM chains with the click of a button, or
@@ -106,23 +111,26 @@
         </div>
       </div>
       <div class="lower flex flex-col md:flex-row">
-        <presale-control id="control-box" class="control flex flex-col grow basis-1"></presale-control>
+        <presale-control
+          id="control-box"
+          class="control flex flex-col grow basis-1"
+        ></presale-control>
         <script type="module" src="./build/presale-control.js"></script>
         <div class="info grow flex flex-col justify-around">
-          <div class="stats md:px-4 justify-between">
-            <div class="card stat stats_tokens p-2">
+          <div class="stats md:px-4 justify-between flex-col md:flex-row">
+            <div class="card stat stats_tokens p-2 m-2 md:m-0 md:w-1/5">
               <div class="font-bold text-lg lg:text-2xl">30 Mins</div>
               <p class="text-sm">Whitelist</p>
             </div>
-            <div class="card stat stats_price p-2">
+            <div class="card stat stats_price p-2 m-2 md:m-0 md:w-1/5">
               <div class="font-bold text-lg lg:text-2xl">11,225</div>
               <p class="text-sm">FOCAL Per BNB</p>
             </div>
-            <div class="card stat stats_max p-2">
+            <div class="card stat stats_max p-2 m-2 md:m-0 md:w-1/5">
               <div class="font-bold text-lg lg:text-2xl">22,450</div>
               <p class="text-sm">Max FOCAL Purchase</p>
             </div>
-            <div class="card stat stats_hardcap p-2">
+            <div class="card stat stats_hardcap p-2 m-2 md:m-0 md:w-1/5">
               <div class="font-bold text-lg lg:text-2xl">500 BNB</div>
               <p class="text-sm">Hard Cap</p>
             </div>
@@ -132,31 +140,48 @@
               <span id="tokens-sold" class="text-base font-medium text-white"
                 >0/5,612,500 Tokens Sold</span
               >
-              <span id="percent-sold" class="text-sm font-medium text-white">0%</span>
+              <span id="percent-sold" class="text-sm font-medium text-white"
+                >0%</span
+              >
             </div>
             <div
               class="w-full bg-slate-100 rounded h-10 shadow"
               style="opacity: 0.4"
             >
-              <div id="meter" class="bg-blue-600 h-10 rounded" style="width: 0%"></div>
+              <div
+                id="meter"
+                class="bg-blue-600 h-10 rounded"
+                style="width: 0%"
+              ></div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <script async>
-      let statusField = document.getElementById("status-field");
-      let tokensSoldField = document.getelementById("tokens-sold");
-      let percentSoldField = document.getelementById("percent-sold");
+      function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
+      let statusField = document.getElementById('status-field');
+      let tokensSoldField = document.getElementById('tokens-sold');
+      let percentSoldField = document.getElementById('percent-sold');
+      let meter = document.getElementById('meter');
       let maxTokens = 5_612_500;
-      let meter = document.getElementById("meter");
-      document.body.addEventListener('presaleState', function(e) { 
-        let tokensSold = e.detail.tokensSold;
-        tokensSoldField.text = `${tokensSold}/${maxTokens} Tokens Sold`;
-        let percentSold = (tokensSold/maxTokens)*100;
-        meter.style.width = `${percentSold}%`;
-        console.log(e);
-      }, false);
+      document.body.addEventListener(
+        'presaleState',
+        function (e) {
+          let tokensSold = e.detail.tokensSold;
+          tokensSoldField.textContent = `${numberWithCommas(
+            tokensSold
+          )}/${numberWithCommas(maxTokens)} Tokens Sold`;
+          let percentSold = (tokensSold / maxTokens) * 100;
+          meter.style.width = `${percentSold}%`;
+          percentSoldField.textContent = `${percentSold}%`;
+          statusField.textContent = `Status: ${e.detail.state}`;
+          console.log(e);
+        },
+        false
+      );
     </script>
   </body>
 </html>

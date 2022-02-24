@@ -50,7 +50,6 @@ body {
   display: flex;
   flex-direction: column;
   text-align: center;
-  width: 22%;
   justify-content: space-around;
   aspect-ratio: auto;
 }
@@ -58,3 +57,4 @@ body {
 button:disabled {
   opacity: 0.7;
 }
+

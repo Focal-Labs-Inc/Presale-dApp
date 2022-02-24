@@ -1,4 +1,4 @@
-import {FocalPresale, isConnected, PresaleState} from './lib';
+import {FocalPresale, isConnected, isInstalled, PresaleState} from './lib';
 import {html, LitElement} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {round, smallNumber} from './utils';
@@ -14,6 +14,12 @@ export class PresaleControl extends LitElement {
   async firstUpdated() {
     await new Promise((r) => setTimeout(r, 0));
     await this.presale.initialize();
+    // need to check this first... 
+    if (!isInstalled()) {
+      super.requestUpdate();
+      this.presale.walletState = "notinstalled";
+      return; 
+    } 
     if (await isConnected()) {
       // metamask previously authenticated just need to load
       await this.presale.getMetameme();
@@ -290,7 +296,7 @@ export class PresaleControl extends LitElement {
           id="metamask-connect"
           @click="${this._connectWallet}"
         >
-          <div class="font-bold self-center">CONNECT WITH METAMASK</div>
+        <div class="font-bold self-center">CONNECT WITH METAMASK/TRUSTWALLET</div>
           <div class="w-20 self-center">
             <img src="assets/metamask.svg" class="object-contain" />
           </div>

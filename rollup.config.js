@@ -8,7 +8,7 @@ import summary from 'rollup-plugin-summary';
 import commonjs from '@rollup/plugin-commonjs';
 
 export default {
-  input: 'index.html',
+  input: 'presale.html',
   plugins: [
     html(),
     resolve({mainFields: [ "module", "main" ]}),
